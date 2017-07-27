@@ -8,6 +8,17 @@
   	}
   }
 
+
+  // FUNCIONES DE CONSULTA INDIVIDUAL RAPIDA
+  function getGranja($id_granja){
+  	// $sql= "SELECT * FROM granja WHERE id_granja='$id_granja' ";
+		 // $query = mysql_query($sql);
+   //   while($row =mysql_fetch_array($query)){
+   //    echo $row[1];
+   //   }
+
+  }
+
         
 
        

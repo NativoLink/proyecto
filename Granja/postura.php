@@ -1,10 +1,10 @@
 
-<?php  
 
+<?php  
 include("../conectar.php");
 $con = conectar();
 
-$id_granja  = $_GET['id_granja'];
+$id_granja = $_GET['id_granja'];
 if(!empty($_GET['fecha_i'])){
   $fec_ini=$_GET['fecha_i'];
   $fecha_fin=$_GET['fecha_f'];
@@ -13,44 +13,52 @@ if(!empty($_GET['fecha_i'])){
   $fec_ini = $y."-".date('m')."-".date('d');
   $fecha_fin = date('Y-m-d');
 }
-// foreach($con->query("SELECT * FROM granjas")as $row) {
 
-// }
+$query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(postura.huevos_r),SUM(postura.huevos_d) FROM postura, nave, lote, granja WHERE postura.id_nave = nave.id_nave AND nave.id_lote = lote.id_lote AND lote.id_granja = $id_granja AND (postura.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')  ORDER BY granja.id_granja";
 
-$query= "SELECT SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(postura.huevos_r),SUM(postura.huevos_d) FROM postura, nave, lote, granja where postura.id_nave = nave.id_nave and nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja and granja.id_granja='$id_granja'";
-// $cant =$resTotal->num_rows;
+// $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(postura.huevos_r),SUM(postura.huevos_d) FROM postura, nave, lote, granja where postura.id_nave = nave.id_nave and nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja  order by granja.id_granja";
 
- // $exec=$con->query($query);
- // while($row = mysql_fetch_array($exec)){
  foreach($con->query($query)as $row) {
   $hf = $row['SUM(postura.huevos_f)'];
   $hs = $row['SUM(postura.huevos_s)'];
   $hr = $row['SUM(postura.huevos_r)'];
   $hd = $row['SUM(postura.huevos_d)'];
- // "['".$row['SUM(postura.huevos_f)']."',".$row['SUM(postura.huevos_s)']."',".$row['SUM(postura.huevos_r)']."',".$row['SUM(postura.huevos_d)']."],";
- }// $resTotal =$con->query("SELECT * FROM postura WHERE huevosf= ");
-// $cant =$resTotal->num_rows;
+  // fin grafica postura de huevos
+}
+  
+ 
+
+ 
+
+  $query7= "SELECT sum(alimento_consumido.cantidad_h) as ah, sum(alimento_consumido.cantidad_m) as am from alimento_consumido";
+
+ foreach($con->query($query7)as $row) {
+  $ah = $row['ah'];
+  $am = $row['am'];
+ }
+ //cantidad hembras y machos comprados
+ 
+ 
+ 
+ 
 
 ?>
 
-              <div id="posh"  class="span6 area_grafica" ></div>
-             <div id="container" class="span6 area_grafica" ></div>
-
-
-<!--end-Footer-part-->
-
+      <div id="container" class="span6 area_grafica" ></div>
+      
+      <div id="posturascolum"  class="span6 area_grafica" ></div>
 
 
 
-<script src="hc/code/highcharts.js"></script>
-<script src="hc/code/modules/exporting.js"></script>
+<!-- <script src="hc/code/highcharts.js"></script>
+<script src="hc/code/modules/exporting.js"></script> -->
 
 
 
 
     <script type="text/javascript">
 
-Highcharts.chart('posh', {
+Highcharts.chart('container', {
     chart: {
         plotBackgroundColor: null,
         plotBorderWidth: null,
@@ -70,7 +78,7 @@ Highcharts.chart('posh', {
             cursor: 'pointer',
             dataLabels: {
                 enabled: true,
-                format: '<b>{point.name}</b>: {point.y:.1f}',
+                format: '<b>{point.name}</b>: {point.y:.1f} ',
                 style: {
                     color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
                 }
@@ -78,13 +86,13 @@ Highcharts.chart('posh', {
         }
     },
     series: [{
-        name: 'Porciento',
+        name: 'porciento',
         colorByPoint: true,
         data: [{
             name: 'Huevos Fertiles',
             y: <?php echo $hf; ?>
         }, {
-            name: 'Huevos sucios',
+            name: 'Huevo sucios',
             y:  <?php echo $hs; ?>,
             sliced: true,
             selected: true
@@ -103,9 +111,16 @@ Highcharts.chart('posh', {
         //     y:  <?php echo $hf; ?>
         // }
         ]
-    }]
+    }], 
+
+  
 });
     </script>
+
+
+
+
+  
 
 
 <!--postura de huevos en columna--> 
@@ -119,7 +134,7 @@ Highcharts.chart('posh', {
 
         <script type="text/javascript">
 
-Highcharts.chart('container', {
+Highcharts.chart('posturascolum', {
     chart: {
         type: 'column'
     },

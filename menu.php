@@ -21,6 +21,8 @@
 <link id="load-css-0" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/45/css/util/util.css"><link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/45/css/core/tooltip.css"><link id="load-css-0" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/45/css/util/util.css"><link id="load-css-1" rel="stylesheet" type="text/css" href="https://www.gstatic.com/charts/45/css/core/tooltip.css"></head>
 <script src="js/funciones.js"></script> 
 
+<link rel="stylesheet" href="css/custom.css">
+
 
 
 
@@ -68,9 +70,9 @@
   <ul style="display: block;">
 
 <!-- EJEMPLO PARA CARGAR OTRA VISTA ==================== // -->
-    <li class="active"><a onclick="CargarAjax('contenido','graficasL.php', '', 'GET');"  href="#"><i class="icon icon-home"></i> <span>Dashboard</span></a> </li>
+    <li class="active"><a onclick="CargarAjax('contenido','General/graficas_content.php', 'archivo=postura', 'GET');"  href="#"><i class="icon icon-home"></i> <span>Dashboard (General)</span></a> </li>
 
-<li class="submenu"> <a href="#"><i class="icon icon-signal"></i> <span>Tablas &amp; Graficas</span> <span class="label label-important"></span></a>
+<li class="submenu"> <a href="#"><i class="icon icon-signal"></i> <span>Tablas &amp; Graficas (Granjas)</span> <span class="label label-important"></span></a>
       <ul>
       <?php
         $sql="select * from granja ";
@@ -84,7 +86,7 @@
           }else{$archivo="jarabacoa";}
       ?>
 
-        <li><a href="#" onclick="CargarAjax('contenido','Granja/dashboard.php', 'id_granja=<? echo $row['id_granja'];?>', 'GET');"> <?php echo $row['nombre'];?></a></li>
+        <li><a href="#" onclick="CargarAjax('contenido','Granja/graficas_content.php', 'id_granja=<? echo $row['id_granja'];?>&nombre_granja=<? echo $row['nombre'];?>&archivo=postura', 'GET');"> <?php echo $row['nombre'];?></a></li>
         <?php }?>
         
        <li><a href="#" onclick="CargarAjax('contenido','comparaciones.php', '', 'GET');">Comparacion</a></li>
