@@ -1,4 +1,7 @@
-
+<?php
+ include("conectar.php");
+  $db = conectar();
+?>
 <div id="content-header">
   <div id="breadcrumb"> <a href="index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Inicio</a> <a href="#" class="tip-bottom">Form elements</a> <a href="#" class="current">Lotes</a> </div>
   <h1>Lotes Activo</h1>
@@ -15,17 +18,30 @@
             <table class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th class="span6">Crianza</th>
-                  <th class="span6">Produccion</th>
+                  <th class="span6"></th>
+                   <th class="span6">Edad</th>
+                  <th class="span6"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr class="odd gradeX">
                   <td>
-                     <?php
-        $sql="select  from lote ";
-          $db = new PDO('mysql:host=localhost;dbname=c.a.c;charset=utf8mb4', 'root', 'Jose0424');
+<?php
 
+        function calcular_semanas($fecha1){
+
+          $datetime1 = new DateTime($fecha1);
+          $datetime2 = new DateTime(date('Y-m-d'));
+          $interval = $datetime1->diff($datetime2);
+
+          // return $fecha1;
+          return floor(($interval->format('%a') / 7)) . ' semanas con '
+               . ($interval->format('%a') % 7) . ' días';
+
+          }
+
+
+        $sql="select  from lote ";
         $query = $db->query($sql);
         
          foreach($db->query('SELECT * FROM lote' ) as $row) {
@@ -39,11 +55,17 @@
 
                   <td class="center">  <?php   echo $row1['nombre']."-"." Lote(".$row['id_lote'].") "; ?> </td>
 
+                  <?php
+                    $edad = calcular_semanas($row['fecha_inicioC']);
+
+                  ?>
+                  <td class="center"> <?php   echo $edad;?></td>
+
                     <?php 
                    if($row['estado']=="p"){
                           $estado="f";
                           $clase = "btn-warnning";
-                           $status ="Produccion";
+                           $status ="Activo";
                            $state= "Inicio";
                       }else if ($row['estado']=="f") {
                           $estado ="ff";
@@ -53,12 +75,22 @@
                         }else{
                           $estado ="p";
                           $clase = "";
-                          $status ="Crianza";
+                          $status ="Activo";
                           $state= "na";
 
-                          } ?>
+                        }
+                  if ($row['estado']==""){
+                          $estado ="f";
+                          $clase = "";
+                          $status ="Activo";
+                          $state= "na";
 
-                  <td><a href="#" title="<?php echo $state;?>  " class="btn <?php echo $clase;?>" onclick="CAjax('pasaraproduccion.php','id_lote=<?php echo $row['id_lote'];?>&estado=<?php echo $estado;?>&fecha=<?php echo "2017-07-07" ?>','GET');">X</a> <?php echo $status;?>  
+
+                    }?>
+
+                  <td><a href="#" title="<?php echo $state;?>  " class="btn <?php echo $clase;?>" onclick="CAjax('pasarProduccion.php','id_lote=<?php echo $row['id_lote'];?>&estado=<?php echo $estado;?>&fecha=<?php echo "2017-07-07" ?>','GET');CargarAjax('contenido','complementos.php', '', 'GET');">X</a> <?php echo $status;?> 
+
+
                     
                 
 

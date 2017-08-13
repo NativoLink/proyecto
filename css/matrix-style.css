@@ -39,6 +39,7 @@ hr{ border-top-color:#dadada;}
 .bg_ll{ background:#f89406;}
 .bg_le{ background:#bdac0f;}
 .bg_lp{ background:#231340;}
+.bg_lt{ background:#cf7859;}
 .bg_dg{ background:#28b779;}
 .bg_ly{ background:#ffb848;}
 .bg_dy{ background:#da9628;}
@@ -583,7 +584,7 @@ hr{ border-top-color:#dadada;}
 	background-color: #F9F9F9 !important;
 	color: #444444;
 }
-.widget-title span.icon {
+.widget-title span.icon-lock {
 	padding: 9px 10px 7px 11px;
 	float: left; border-right:1px solid #dadada;
 }

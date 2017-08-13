@@ -15,11 +15,11 @@ if(!empty($_GET['fecha_i'])){
 }
 
 
-  echo $query6= "SELECT sum(compra.cantidad_h) as ch, sum(compra.cantidad_m) as cm from compra WHERE (compra.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
+$query6= "SELECT granja.id_granja, sum(compra.cantidad_h) as cch, sum(compra.cantidad_m) as ccm from compra, nave, lote, granja where compra.id_nave = nave.id_nave AND nave.id_lote = lote.id_lote AND lote.id_granja = granja.id_granja AND granja.id_granja='$id_granja'and (compra.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
 
  foreach($con->query($query6)as $row) {
-  $cch = $row['ch'];
-  $ccm = $row['cm'];
+  $cch = $row['cch'];
+  $ccm = $row['ccm'];
  }
  //cantidad hembras y machos comprados
 
@@ -31,6 +31,7 @@ if(!empty($_GET['fecha_i'])){
 <div id="compracolum"  class="span6 area_grafica" ></div>
 
 
+
 <!--compra--> 
 
 <!-- <script src="hc/code/highcharts.js"></script>
@@ -39,6 +40,7 @@ if(!empty($_GET['fecha_i'])){
 
 
 
+  
     <script type="text/javascript">
 
 Highcharts.chart('compra', {
@@ -49,7 +51,7 @@ Highcharts.chart('compra', {
         type: 'pie'
     },
     title: {
-        text: 'compra de Aves'
+        text: 'Compra De Aves'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -96,14 +98,12 @@ Highcharts.chart('compracolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Compra de Aves'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
-            'compra de Aves',
+            'Compra De Aves',
            
         ],
         crosshair: true
@@ -111,7 +111,7 @@ Highcharts.chart('compracolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {

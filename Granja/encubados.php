@@ -15,11 +15,11 @@ if(!empty($_GET['fecha_i'])){
 }
 
 
-echo $query3= "SELECT sum(huevos_encu), SUM(huevos_recha) from incubadora WHERE (incubadora.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
+ $query3= "SELECT granja.nombre, sum(incubadora.huevos_encu) as he , sum(incubadora.huevos_recha) as hr from incubadora, nave, lote, postura, granja where incubadora.id_postura = postura.id_postura and postura.id_nave = nave.id_nave and nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja and granja.id_granja='$id_granja' and (incubadora.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
 
  foreach($con->query($query3)as $row) {
-  $he = $row['sum(huevos_encu)'];
-  $hr = $row['SUM(huevos_recha)'];
+  $he = $row['he'];
+  $hr = $row['hr'];
  }
   // fin grafica huevos encubados y rechasados
 
@@ -100,9 +100,10 @@ Highcharts.chart('huevosencubadosyrechasadoscolum', {
     title: {
         text: 'Monthly Average Rainfall'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
+    title: {
+        text: 'Huevos En Incubados'
     },
+   
     xAxis: {
         categories: [
             'Huevos En Incubadora',
@@ -113,7 +114,7 @@ Highcharts.chart('huevosencubadosyrechasadoscolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {
@@ -137,7 +138,7 @@ Highcharts.chart('huevosencubadosyrechasadoscolum', {
 
     },
      {
-        name: 'Huevos Rechasados',
+        name: 'Huevos Rechazados',
         data: [<?php echo $hr; ?>]
 
     },

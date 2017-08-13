@@ -26,22 +26,9 @@ $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(
 }
   
  
-
- 
-
-  $query7= "SELECT sum(alimento_consumido.cantidad_h) as ah, sum(alimento_consumido.cantidad_m) as am from alimento_consumido";
-
- foreach($con->query($query7)as $row) {
-  $ah = $row['ah'];
-  $am = $row['am'];
- }
- //cantidad hembras y machos comprados
  
  
- 
- 
-
-?>
+ ?>
 
 
       <div id="container" class="span6 area_grafica" ></div>
@@ -63,7 +50,7 @@ Highcharts.chart('container', {
         type: 'pie'
     },
     title: {
-        text: 'Postura de Huevos'
+        text: 'Postura De Huevos'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -136,14 +123,12 @@ Highcharts.chart('posturascolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Postura De Huevos'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+    
     xAxis: {
         categories: [
-            'Postura De Huevos',
+            'Postura De Huevos'
            
         ],
         crosshair: true
@@ -151,13 +136,13 @@ Highcharts.chart('posturascolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true

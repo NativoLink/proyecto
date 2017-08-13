@@ -14,31 +14,20 @@ if(!empty($_GET['fecha_i'])){
   $fecha_fin = date('Y-m-d');
 }
 
-$query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(postura.huevos_r),SUM(postura.huevos_d) FROM postura, nave, lote, granja WHERE postura.id_nave = nave.id_nave AND nave.id_lote = lote.id_lote AND lote.id_granja = $id_granja AND (postura.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')  ORDER BY granja.id_granja";
+$query= "SELECT SUM(postura.huevos_f) as hf, SUM(postura.huevos_s) as hs,SUM(postura.huevos_r) as hr,SUM(postura.huevos_d) as hd FROM postura, nave, lote, granja WHERE postura.id_nave = nave.id_nave AND nave.id_lote = lote.id_lote AND lote.id_granja =granja.id_granja and granja.id_granja= $id_granja AND (postura.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
 
 // $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(postura.huevos_r),SUM(postura.huevos_d) FROM postura, nave, lote, granja where postura.id_nave = nave.id_nave and nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja  order by granja.id_granja";
 
  foreach($con->query($query)as $row) {
-  $hf = $row['SUM(postura.huevos_f)'];
-  $hs = $row['SUM(postura.huevos_s)'];
-  $hr = $row['SUM(postura.huevos_r)'];
-  $hd = $row['SUM(postura.huevos_d)'];
+  $hf = $row['hf'];
+  $hs = $row['hs'];
+  $hr = $row['hr'];
+  $hd = $row['hd'];
   // fin grafica postura de huevos
 }
   
  
 
- 
-
-  $query7= "SELECT sum(alimento_consumido.cantidad_h) as ah, sum(alimento_consumido.cantidad_m) as am from alimento_consumido";
-
- foreach($con->query($query7)as $row) {
-  $ah = $row['ah'];
-  $am = $row['am'];
- }
- //cantidad hembras y machos comprados
- 
- 
  
  
 
@@ -139,14 +128,15 @@ Highcharts.chart('posturascolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        type: 'column'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
+    title: {
+        text: 'Postura De Huevos'
     },
+    
     xAxis: {
         categories: [
-            'Postura De Huevos',
+            'Postura De Huevos'
            
         ],
         crosshair: true
@@ -154,13 +144,13 @@ Highcharts.chart('posturascolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true

@@ -56,7 +56,7 @@ $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(
 
 <!--breadcrumbs-->
   <div id="content-header">
-    <div id="breadcrumb"> <a href="index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Inicio</a> <a href="#">Tablas y Graficas</a> <a href="#" id="nombre_granja"><? echo $nombre;?></a> <a href="#" class="current" "><span id="ubicacion_final"></span></a> </div>
+    <div id="breadcrumb"> <a href="index.php" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Inicio</a> <a href="#">Tablas y Graficas</a> <a href="#" id="nombre_granja"><?php echo $nombre;?></a> <a href="#" class="current" "><span id="ubicacion_final"></span></a> </div>
   </div>
 
   <div id="content-header">
@@ -68,34 +68,29 @@ $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(
 
 
 
-                  <!--buscar-->   
-                   <div id="search">
-  <input type="text" placeholder="Search here..."/>
-  <button type="submit" class="tip-bottom" title="Search"><i class="icon-search icon-white"></i></button>
-</div>
-
+                 
 <div id="menu_fecha"  class="widget-content" >
                  
                   
         <div class="input-append date datepicker">
-            <label>Hasta </label>
-        </div>
-        <div class="input-append date datepicker">
-          <input value="<? if($_GET['fecha_i']){echo $_GET['fecha_i'];}else{ echo $fec_ini;}?>" data-date-format="dd-mm-aaaa" class="span" type="date" id="fecha_i">
-        </div>
-    
-        <div class="input-append date datepicker">
             <label>Desde</label>
         </div>
         <div class="input-append date datepicker">
-            <input value="<? if($_GET['fecha_f']){echo $_GET['fecha_f'];}else{ echo  $fecha_fin;}?>" data-date-format="dd-mm-aaaa" class="span" type="date" id="fecha_f">
+          <input value="<?php if($_GET['fecha_i']){echo $_GET['fecha_i'];}else{ echo $fec_ini;}?>" data-date-format="dd-mm-aaaa" class="span" type="date" id="fecha_i">
+        </div>
+    
+        <div class="input-append date datepicker">
+            <label>Hasta</label>
+        </div>
+        <div class="input-append date datepicker">
+            <input value="<?php if($_GET['fecha_f']){echo $_GET['fecha_f'];}else{ echo  $fecha_fin;}?>" data-date-format="dd-mm-aaaa" class="span" type="date" id="fecha_f">
         </div>
         <div class="input-append date datepicker">
             <button id="buscar" class="btn-success">Buscar</button>
         </div>
-        <script>
-        graficaSegun('postura');
-        function graficaSegun(archivo){
+        <script type="text/javascript">
+        
+        function graficaSegun2(archivo){
               fecha_i = $("#fecha_i").val();
               fecha_f = $("#fecha_f").val();
               titulo = "..."; 
@@ -107,33 +102,35 @@ $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(
               else if(archivo =='compras'){titulo='Compra De Aves';}
 
               $("#titulo").text(titulo);
-              $("#ubicacion_final").text(titulo);
+              $("#ubicacion_final¨").text(titulo);
               // console.log(fecha_i+" "+fecha_f);
-              CargarAjax('graficas-content','Granja/'+archivo+'.php', 'fecha_i='+fecha_i+'&fecha_f='+fecha_f+'&archivo='+archivo+'&id_granja='+<? echo $_GET['id_granja']?>, 'GET');
-        }
+              CargarAjax('graficas-content','Granja/'+archivo+'.php', 'fecha_i='+fecha_i+'&fecha_f='+fecha_f+'&archivo='+archivo+'&id_granja='+<?php echo $_GET['id_granja']?>, 'GET');
+        }graficaSegun2('postura');
           $("#buscar").click(function(){
               fecha_i = $("#fecha_i").val();
               fecha_f = $("#fecha_f").val();
               // console.log(fecha_i+" "+fecha_f);
-              CargarAjax('graficas-content','Granja/<? echo $_GET['archivo']?>.php', 'fecha_i='+fecha_i+'&fecha_f='+fecha_f+'&id_granja='+<? echo $_GET['id_granja']?>, 'GET');
+              CargarAjax('graficas-content','Granja/<?php echo $_GET['archivo']?>.php', 'fecha_i='+fecha_i+'&fecha_f='+fecha_f+'&id_granja='+<?php echo $_GET['id_granja']?>, 'GET');
           });
         </script>
     
     </div>
 
              
-              <li class="btn btn-primary"<a onclick="graficaSegun('postura');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Postura De Huevos</a> </li>
-             <li class="btn btn-info"<a onclick="graficaSegun('consumido');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Alimento Consumido</a> </li>
+              <li class="btn btn-primary"<a onclick="graficaSegun2('postura');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Postura De Huevos</a> </li>
+             <li class="btn btn-info"<a onclick="graficaSegun2('consumido');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Alimento Consumido</a> </li>
 
-              <li class="btn btn-success"<a onclick="graficaSegun('encubados');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Huevos encubados</a> </li>
+              <li class="btn btn-success"<a onclick="graficaSegun2('encubados');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Huevos Incubados</a> </li>
 
-              <li class="btn btn-warning"<a onclick="graficaSegun('mortalidad');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Mortalidad</a> </li>
-
-              
-             <li class="btn btn-danger""<a onclick="graficaSegun('ventas');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Venta De Aves</a> </li>
+              <li class="btn btn-warning"<a onclick="graficaSegun2('mortalidad');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Mortalidad</a> </li>
 
               
-              <li class="btn btn-inverse""<a onclick="graficaSegun('compras');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Compra De Aves</a> </li>
+             <li class="btn btn-danger""<a onclick="graficaSegun2('ventas');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Venta De Aves</a> </li>
+
+              
+              <li class="btn btn-inverse""<a onclick="graficaSegun2('compras');"  href="#"> <i class="icon-globe"></i> <span class="label label-important"></span>Compra De Aves</a> </li>
+
+      
 
           </div>
 
@@ -168,145 +165,4 @@ $query= "SELECT granja.nombre, SUM(postura.huevos_f), SUM(postura.huevos_s),SUM(
 
 
 
-
-
-
-    <script type="text/javascript">
-
-Highcharts.chart('container', {
-    chart: {
-        plotBackgroundColor: null,
-        plotBorderWidth: null,
-        plotShadow: false,
-        type: 'pie'
-    },
-    title: {
-        text: 'Postura de Huevos'
-    },
-    tooltip: {
-        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-    },
-    plotOptions: {
-        pie: {
-
-            allowPointSelect: true,
-            cursor: 'pointer',
-            dataLabels: {
-                enabled: true,
-                format: '<b>{point.name}</b>: {point.y:.1f} ',
-                style: {
-                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                }
-            }
-        }
-    },
-    series: [{
-        name: 'porciento',
-        colorByPoint: true,
-        data: [{
-            name: 'Huevos Fertiles',
-            y: <?php echo $hf; ?>
-        }, {
-            name: 'Huevo sucios',
-            y:  <?php echo $hs; ?>,
-            sliced: true,
-            selected: true
-        }, {
-            name: 'Huevos Rotos',
-            y:  <?php echo $hr; ?>
-        }, {
-            name: 'Huevos Doble Yema',
-            y:  <?php echo $hd; ?>
-        }
-        // , {
-        //     name: 'Opera',
-        //     y:  <?php echo $hf; ?>
-        // }, {
-        //     name: 'Proprietary or Undetectable',
-        //     y:  <?php echo $hf; ?>
-        // }
-        ]
-    }], 
-
-  
-});
-    </script>
-
-
-
-
-  
-
-
-<!--postura de huevos en columna--> 
-<script src="../../code/highcharts.js"></script>
-<script src="../../code/modules/exporting.js"></script>
-
-
-
-
-
-
-        <script type="text/javascript">
-
-Highcharts.chart('posturascolum', {
-    chart: {
-        type: 'column'
-    },
-    title: {
-        text: 'Monthly Average Rainfall'
-    },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
-    xAxis: {
-        categories: [
-            'Postura De Huevos',
-           
-        ],
-        crosshair: true
-    },
-    yAxis: {
-        min: 0,
-        title: {
-            text: 'Rainfall (mm)'
-        }
-    },
-    tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-        footerFormat: '</table>',
-        shared: true,
-        useHTML: true
-    },
-    plotOptions: {
-        column: {
-            pointPadding: 0.2,
-            borderWidth: 0
-        }
-    },
-    series: [
-      {
-        name: 'Huevos Fertiles',
-        data: [<?php echo $hf; ?>]
-
-    },
-     {
-        name: 'Huevos sucios',
-        data: [<?php echo $hs; ?>]
-
-    },
-     {
-        name: 'Huevos Rotos',
-        data: [<?php echo $hr; ?>]
-
-    },
-     {
-        name: 'Huevos Doble Yema',
-        data: [<?php echo $hd; ?>]
-
-    }]
-});
-        </script>
 

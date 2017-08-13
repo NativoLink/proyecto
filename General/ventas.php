@@ -44,7 +44,7 @@ Highcharts.chart('Venta', {
         type: 'pie'
     },
     title: {
-        text: 'Venta de Aves'
+        text: 'Venta De Aves'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -95,14 +95,12 @@ Highcharts.chart('ventacolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Venta De Aves'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
-            'venta de Aves',
+            'Venta De Aves',
            
         ],
         crosshair: true
@@ -110,11 +108,11 @@ Highcharts.chart('ventacolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+         headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
             '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
         footerFormat: '</table>',

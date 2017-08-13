@@ -12,7 +12,7 @@ if(!empty($_GET['fecha_i'])){
   $fecha_fin = date('Y-m-d');
 }
 
-echo  $query4= "SELECT sum(salida.cantidad_h) as hh, sum(salida.cantidad_m) as mm from salida, nave, lote where (salida.motivo ='1' AND lote.id_granja='$id_granja') AND nave.id_lote=lote.id_lote
+$query4= "SELECT granja.id_granja, sum(salida.cantidad_h) as hh, sum(salida.cantidad_m) as mm from salida, nave, lote, granja where salida.motivo = 1 and salida.id_nave = nave.id_nave and nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja and granja.id_granja='$id_granja'
     AND (salida.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
 
  foreach($con->query($query4)as $row) {
@@ -96,11 +96,9 @@ Highcharts.chart('Mortalidadcolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Mortalidad'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
             'Mortalidad',
@@ -111,7 +109,7 @@ Highcharts.chart('Mortalidadcolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {

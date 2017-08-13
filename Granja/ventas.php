@@ -11,12 +11,12 @@ if(!empty($_GET['fecha_i'])){
   $fec_ini = $y."-".date('m')."-".date('d');
   $fecha_fin = date('Y-m-d');
 }
-
- echo $query5= "SELECT sum(salida.cantidad_h) as h, sum(salida.cantidad_m) as m from salida, nave, lote where nave.id_lote = lote.id_lote AND lote.id_granja ='$id_granja' AND salida.motivo = 2 AND (salida.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
+ $query5= "SELECT granja.id_granja, sum(salida.cantidad_h) as vh, sum(salida.cantidad_m) as vm from salida, nave, lote, granja where salida.motivo = 2 and salida.id_nave = nave.id_nave and nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja and granja.id_granja='$id_granja'
+    AND (salida.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
 
  foreach($con->query($query5)as $row) {
-  $vh = $row['h'];
-  $vm = $row['m'];
+  $vh = $row['vh'];
+  $vm = $row['vm'];
  }
  //cantidad hembras y machos vendidos
 
@@ -97,14 +97,15 @@ Highcharts.chart('ventacolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        type: 'column'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
+    title: {
+        text: 'Venta De Aves'
     },
+   
     xAxis: {
         categories: [
-            'venta de Aves',
+            'Venta De Aves',
            
         ],
         crosshair: true
@@ -112,7 +113,7 @@ Highcharts.chart('ventacolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {

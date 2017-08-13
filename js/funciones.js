@@ -108,6 +108,20 @@ var cant_hm = msg.split("-");
   });
 }
 
+function option2Ajax(arch, vares, tipo,contenedor){
+  $.ajax({
+    type: tipo,
+    url: arch,
+    data: vares,
+    success: function(msg){
+    // $("#"+contenedor+"").text(msg);
+    $("#"+contenedor+"").attr("value",msg);
+          console.log('Success '+msg);
+         // $("#"+contenedor+"").val(msg);
+    }
+  });
+}
+
 
 
 

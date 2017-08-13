@@ -93,11 +93,9 @@ Highcharts.chart('Mortalidadcolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Mortalidad'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
             'Mortalidad',
@@ -108,7 +106,7 @@ Highcharts.chart('Mortalidadcolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {

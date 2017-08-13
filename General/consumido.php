@@ -11,12 +11,12 @@ if(!empty($_GET['fecha_i'])){
   $fecha_fin = date('Y-m-d');
 }
 
-$query2= "SELECT SUM(ac.cantidad_h) , SUM(ac.cantidad_m) FROM alimento_consumido ac, nave n 
+$query2= "SELECT SUM(ac.cantidad_h) as ah, SUM(ac.cantidad_m) as am FROM alimento_consumido ac, nave n 
 where ac.id_nave = n.id_nave AND (ac.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59') ";
 
  foreach($con->query($query2)as $row) {
-  $ch = $row['SUM(ac.cantidad_h)'];
-  $cm = $row['SUM(ac.cantidad_m)'];
+  $ah = $row['ah'];
+  $am = $row['am'];
  
   // fin grafica alimento consumido
 }
@@ -41,7 +41,7 @@ Highcharts.chart('alimentoconsumido', {
         type: 'pie'
     },
     title: {
-        text: 'alimento consumido'
+        text: 'Alimento Consumido'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -65,10 +65,10 @@ Highcharts.chart('alimentoconsumido', {
         colorByPoint: true,
         data: [{
             name: 'Hembras ',
-            y: <?php echo $ch; ?>
+            y: <?php echo $ah; ?>
         }, {
             name: 'Machos',
-            y:  <?php echo $cm; ?>,
+            y:  <?php echo $am; ?>,
             sliced: true,
             selected: true
         }]
@@ -92,11 +92,9 @@ Highcharts.chart('alimentoconsumidocolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Alimento Consumido'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
             'Aliemto consumido',
@@ -107,13 +105,13 @@ Highcharts.chart('alimentoconsumidocolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad Libras'
         }
     },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} lbs</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true
@@ -127,12 +125,12 @@ Highcharts.chart('alimentoconsumidocolum', {
     series: [
       {
         name: 'Hembras',
-        data: [<?php echo $ch; ?>]
+        data: [<?php echo $ah; ?>]
 
     },
      {
         name: 'Machos',
-        data: [<?php echo $cm; ?>]
+        data: [<?php echo $am; ?>]
 
     },
      ]

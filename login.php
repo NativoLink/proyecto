@@ -25,6 +25,7 @@ if($_GET['cerrar']){session_destroy(); session_commit();}else{
             echo " <script>location.href='index.php'</script>";
             $_SESSION["id_login"]= $row['id_login'];
             $_SESSION["usuario"]= $row['usuario'];
+            $_SESSION["permisos"]= $row['permisos'];
 
 
          }
@@ -56,7 +57,7 @@ if($_GET['cerrar']){session_destroy(); session_commit();}else{
                  <div class="control-group normal_text"> <h3><img src="img/logo.png" alt="Logo" /></h3></div>
                     <font color="#ffb448">
                         <center>
-                         <h1>DashBoard</h1>
+                         <h1>S.I.G Avicola </h1>
                         </center>
                     </font> 
 

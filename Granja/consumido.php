@@ -15,7 +15,7 @@ if(!empty($_GET['fecha_i'])){
   $fecha_fin = date('Y-m-d');
 }
 
-$query7= "SELECT granja.id_granja, sum(alimento_consumido.cantidad_h) AS ah, sum(alimento_consumido.cantidad_m) as am from alimento_consumido, nave, lote, granja where alimento_consumido.id_nave = nave.id_nave AND nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja and granja.id_granja ='$id_granja'  AND (alimento_consumido.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
+$query7= "SELECT granja.id_granja, sum(alimento_consumido.cantidad_h) as ah, sum(alimento_consumido.cantidad_m) as am from alimento_consumido, nave, lote, granja where alimento_consumido.id_nave = nave.id_nave AND nave.id_lote = lote.id_lote and lote.id_granja = granja.id_granja and granja.id_granja='$id_granja'  AND (alimento_consumido.fecha_reg BETWEEN  '$fec_ini 00:00:00' AND  '$fecha_fin 23:59:59')";
 
  foreach($con->query($query7)as $row) {
   $ah = $row['ah'];
@@ -72,10 +72,10 @@ Highcharts.chart('container', {
         name: 'Porciento',
         colorByPoint: true,
         data: [{
-            name: 'Huevos Fertiles',
+            name: 'Hembras',
             y: <?php echo $ah; ?>
         }, {
-            name: 'Huevo sucios',
+            name: 'Machos',
             y:  <?php echo $am; ?>,
             sliced: true,
             selected: true
@@ -102,14 +102,12 @@ Highcharts.chart('container', {
 
 Highcharts.chart('alimentoconsumidocolum', {
     chart: {
-        type: 'column'
+         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Alimento Consumido'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
             'Aliemto consumido',
@@ -120,13 +118,13 @@ Highcharts.chart('alimentoconsumidocolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+       headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
         pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-            '<td style="padding:0"><b>{point.y:.1f} </b></td></tr>',
+            '<td style="padding:0"><b>{point.y:.1f} lbs</b></td></tr>',
         footerFormat: '</table>',
         shared: true,
         useHTML: true

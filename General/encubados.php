@@ -42,7 +42,7 @@ Highcharts.chart('huevosencubadosyrechasados', {
         type: 'pie'
     },
     title: {
-        text: 'Huevos en incubadora'
+        text: 'Huevos En Incubadora'
     },
     tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -65,7 +65,7 @@ Highcharts.chart('huevosencubadosyrechasados', {
         name: 'Porciento',
         colorByPoint: true,
         data: [{
-            name: 'Huevos incubados ',
+            name: 'Huevos Incubados ',
             y: <?php echo $he; ?>
         }, {
             name: 'Huevos Rechasados',
@@ -93,11 +93,9 @@ Highcharts.chart('huevosencubadosyrechasadoscolum', {
         type: 'column'
     },
     title: {
-        text: 'Monthly Average Rainfall'
+        text: 'Huevos En Incubados'
     },
-    subtitle: {
-        text: 'Source: WorldClimate.com'
-    },
+   
     xAxis: {
         categories: [
             'Huevos En Incubadora',
@@ -108,7 +106,7 @@ Highcharts.chart('huevosencubadosyrechasadoscolum', {
     yAxis: {
         min: 0,
         title: {
-            text: 'Rainfall (mm)'
+            text: 'Cantidad'
         }
     },
     tooltip: {
@@ -132,7 +130,7 @@ Highcharts.chart('huevosencubadosyrechasadoscolum', {
 
     },
      {
-        name: 'Huevos Rechasados',
+        name: 'Huevos Rechazados',
         data: [<?php echo $hr; ?>]
 
     },
