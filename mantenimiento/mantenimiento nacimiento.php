@@ -70,7 +70,8 @@
             <div class="control-group">
               <label class="control-label">cantidad:</label>
               <div class="controls">
-                <input type="text" disabled="disabled" class="span6" name="cantidad" id="chm"/>
+                <input type="text"  class="span3" name="cantidad" />
+                <input type="text" disabled="disabled" class="span3" id="chm"/>
               </div>
             </div>
                      <div class="control-group">

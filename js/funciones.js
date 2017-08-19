@@ -85,8 +85,10 @@ function optionAjax(arch, vares, tipo,contenedor){
     data: vares,
     success: function(msg){
 //$("#"+contenedor+"").text(msg);
-         $("#"+contenedor+"").attr("value",msg);
-          console.log('Success '+msg);
+       num = msg.trim();
+         $("#"+contenedor+"").attr("value",num);
+          $("#"+contenedor+"").val(num);
+          console.log(num);
 //          $("#"+contenedor+"").val(msg);
     }
   });
@@ -120,6 +122,25 @@ function option2Ajax(arch, vares, tipo,contenedor){
          // $("#"+contenedor+"").val(msg);
     }
   });
+}
+
+function validarSiNumero(numero){
+    if (!/^([0-9])*$/.test(numero))
+      alert("El valor " + numero + " no es un número");
+  }
+
+function valida(e){
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar, siempre la permite
+    if (tecla==8){
+        return true;
+    }
+        
+    // Patron de entrada, en este caso solo acepta numeros
+    patron =/[0-9]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
 }
 
 

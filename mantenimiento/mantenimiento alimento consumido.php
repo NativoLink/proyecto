@@ -38,7 +38,7 @@
           <h5 style="color: white">Alimento Consumido</h5>
         </div>
         <div class="widget-content nopadding">
-          <form action="#" method="get" class="form-horizontal" id="form_alimento consumido">
+          <form action="#" method="GET" class="form-horizontal" id="form_alimento">
             <div class="control-group">
               <label class="control-label">Nave:</label>
                     <div class="controls">
@@ -73,20 +73,31 @@
             <div class="control-group">
               <label class="control-label">Hembras:</label>
               <div class="controls">
-                <input type="text" class="span6" name="cantidad_h" />
+                <input type="text" class="span6" name="cantidad_h"  onkeypress="return valida(event)"/>
               </div>
             </div>
             <div class="control-group">
               <label class="control-label">Machos:</label>
               <div class="controls">
-                <input type="text"  class="span6" name="cantidad_m" />
+                <input type="text"  class="span6" name="cantidad_m" onkeypress="return valida(event)"/>
               </div>
-            <div class="form-actions">
-            <a href="#" class="btn btn-success" onclick="CargarAjax_Form('registro/reg_alimento consumido.php','form_alimento consumido','GET');limpiar()">Guardar </a>
+
+              <?php  $fecha_ini = date('Y-m-d'); ?>
+              <label class="control-label">Fecha:</label>
+                  <div class="controls">
+                  <div class="input-append date datepicker">
+                  <input value="<?php echo $fecha_ini; ?>" data-date-format="dd-mm-aaaa" class="span" type="date" id="fecha_i" name="fecha_reg"></div>
+                  </div>
+
+              
+
+
+              <div class="form-actions">
+              <a href="#" class="btn btn-success" onclick="CargarAjax_Form('registro/reg_alimento consumido.php','form_alimento','GET');">Guardar </a>
+              
+              </div>
             
             </div>
-            
-                 </div>
          <form >
       </div>
     </div>

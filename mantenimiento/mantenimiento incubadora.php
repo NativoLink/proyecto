@@ -46,7 +46,9 @@
               <script>
                 $("#pos").change(function() {
                    x = $("#pos").val();
-                  optionAjax('huevos_resividos.php?id_postura='+x, '', 'GET','reci');
+                  optionAjax('filtros/huevos_resividos.php?id_incubadora='+x, '', 'GET','reci');
+                  z =  $("#reci").val().trim();
+                  $("#reci_txt").text(z);
                 });
               </script>
 
@@ -77,7 +79,8 @@
             <div class="control-group">
               <label class="control-label">Huevos Recividos:</label>
               <div class="controls">
-                <input type="text" class="span6" name="huevos_resi"  value="0" disabled id="reci"/>
+                <span id="reci_txt"></span>
+                <input type="hidden" class="span6" name="huevos_resi"  value="0"  id="reci"/>
               </div>
             </div>
             <div class="control-group">
