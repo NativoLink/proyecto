@@ -93,7 +93,9 @@
 
 
               <div class="form-actions">
-              <a href="#" class="btn btn-success" onclick="CargarAjax_Form('registro/reg_alimento consumido.php','form_alimento','GET');">Guardar </a>
+              <a href="#" class="btn btn-success" onclick="vCamposVacios();">Guardar </a>
+
+               <button  class="btn btn-primary" onclick="mostrarTabla('id_div_tabla')">Registros</button>
               
               </div>
             
@@ -104,6 +106,22 @@
   </div>
 </div>
 <script>
+
+  function vCamposVacios(){
+    cm =  $("#cantidad_m").val();
+    ch =  $("#cantidad_h").val();
+
+    if(cm!=undefined && ch!=undefined){
+      // CargarAjax_Form('registro/reg_alimento consumido.php','form_alimento','GET');
+    }else{
+      alert('campos vacios');
+    }
+
+  }
+  function mostrarTabla(id_div){
+    $("#"+id_div+"").toggle();
+
+  }
   function limpiar() {
    $(".span6").text("");
     $(".span6").val(""); 
@@ -114,7 +132,7 @@
 
 
 
-      <div class="span12">
+      <div class="span12" id="id_div_tabla" style="display: none">
         <div class="widget-box">
           <div class="widget-title"> <span class="icon"> <i class="icon-th"></i> </span>
             <h5>Alimento Consumido Registrada</h5>
